@@ -11,7 +11,7 @@
 <meta property="og:type" content="website" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Scheherazade+New:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
     --cream: #faf1e9;
@@ -27,8 +27,8 @@
     --line: #ecd6c6;
     --radius: 16px;
     --shadow: 0 12px 30px rgba(160,90,90,0.14);
-    --ar-display: "Aref Ruqaa", "Amiri", "Traditional Arabic", serif;
-    --ar-body: "Scheherazade New", "Amiri", "Traditional Arabic", serif;
+    --ar-display: "Noto Naskh Arabic", "Amiri", "Traditional Arabic", serif;
+    --ar-body: "Noto Naskh Arabic", "Amiri", "Traditional Arabic", serif;
     --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
     --sans: "Jost", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     --ease: cubic-bezier(.22,.61,.36,1);
@@ -42,10 +42,10 @@
   .arabic.verse { font-family: var(--ar-body); }
 
   body::before {
-    content:""; position: fixed; inset: 0; z-index: -1; opacity: 0.5; pointer-events:none;
+    content:""; position: fixed; inset: 0; z-index: -1; opacity: 0.6; pointer-events:none;
     background-color: var(--cream);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'%3E%3Cg fill='none' stroke='%23a83a3a' stroke-opacity='0.13' stroke-width='1'%3E%3Cpath d='M45 8 52 30 74 24 60 44 82 52 60 56 66 78 46 64 38 84 34 60 12 66 28 47 8 38 30 36 24 14 45 28z'/%3E%3Ccircle cx='45' cy='45' r='7'/%3E%3Ccircle cx='45' cy='45' r='15'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 130px 130px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Cg fill='none' stroke='%23a83a3a' stroke-opacity='0.14' stroke-width='1.3'%3E%3Cpath d='M18,30C11,24,7,19,7,14.5C7,11,9.5,9,12.5,9C15,9,17,10.6,18,12.6C19,10.6,21,9,23.5,9C26.5,9,29,11,29,14.5C29,19,25,24,18,30Z'/%3E%3Cpath d='M50,60C43,54,39,49,39,44.5C39,41,41.5,39,44.5,39C47,39,49,40.6,50,42.6C51,40.6,53,39,55.5,39C58.5,39,61,41,61,44.5C61,49,57,54,50,60Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 68px 68px;
   }
 
   .progress { position: fixed; top:0; left:0; height:3px; width:0%; background: linear-gradient(90deg, var(--gold-light), var(--gold-deep)); z-index: 120; transition: width .12s linear; }
@@ -80,9 +80,9 @@
     color: var(--ink);
   }
   .hero::before {
-    content:""; position:absolute; inset:0; z-index:0; opacity:0.5; pointer-events:none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23c76f68' stroke-opacity='0.15' stroke-width='1'%3E%3Cpath d='M60 12 69 40 98 32 80 58 108 68 80 74 88 104 60 86 50 112 44 82 14 90 34 62 10 50 38 46 30 18 60 34z'/%3E%3Ccircle cx='60' cy='60' r='9'/%3E%3Ccircle cx='60' cy='60' r='20'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 160px 160px;
+    content:""; position:absolute; inset:0; z-index:0; opacity:0.55; pointer-events:none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 70 70'%3E%3Cg fill='none' stroke='%23c76f68' stroke-opacity='0.16' stroke-width='1.3'%3E%3Cpath d='M18,30C11,24,7,19,7,14.5C7,11,9.5,9,12.5,9C15,9,17,10.6,18,12.6C19,10.6,21,9,23.5,9C26.5,9,29,11,29,14.5C29,19,25,24,18,30Z'/%3E%3Cpath d='M50,60C43,54,39,49,39,44.5C39,41,41.5,39,44.5,39C47,39,49,40.6,50,42.6C51,40.6,53,39,55.5,39C58.5,39,61,41,61,44.5C61,49,57,54,50,60Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 84px 84px;
   }
   .hero::after {
     content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
@@ -114,7 +114,7 @@
   .hero .eyebrow { color: var(--sage-deep); margin-bottom: 10px; }
   .names { font-size: clamp(2.3rem, 11vw, 3.6rem); line-height: 1.02; color: var(--sage-deep); letter-spacing: 0.01em; }
   .amp { display:block; font-family: var(--serif); font-style: italic; font-size: 0.4em; color: var(--gold-deep); margin: 2px 0; }
-  .hero-date { margin-top: 8px; font-family: var(--serif); font-size: 1.3rem; color: var(--gold-deep); }
+  .hero-date { margin-top: 12px; font-family: var(--serif); font-weight: 600; font-size: clamp(1.55rem, 6.5vw, 2rem); color: var(--gold-deep); letter-spacing: 0.01em; }
 
   .ayah-ar { font-family: var(--ar-body); direction: rtl; font-size: clamp(1.25rem, 5.6vw, 1.6rem); color: var(--gold-deep); line-height: 1.95; margin-top: 6px; }
   .ayah-tr { font-family: var(--serif); font-style: italic; font-size: 0.98rem; color: var(--ink); max-width: 40ch; margin: 10px auto 0; }
@@ -145,7 +145,7 @@
   .tile .arabic { color: var(--gold-deep); font-size: 1.25rem; margin-top: 3px; }
   .tile .meaning { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 0.86rem; letter-spacing: 0.04em; }
   .tile .when { margin-top: 10px; }
-  .tile .when .d { font-family: var(--serif); font-size: 1.02rem; color: var(--ink); line-height: 1.3; }
+  .tile .when .d { font-family: var(--serif); font-size: 1.14rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
   .tile .when .t { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-deep); margin-top: 3px; }
 
   .panel { max-width: 440px; margin: 0 auto; background: var(--paper); border:1px solid var(--line);
@@ -155,7 +155,7 @@
   .panel .meaning { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 0.95rem; letter-spacing: 0.04em; }
   .row { margin-top: 12px; }
   .row .k { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-deep); }
-  .row .v { font-family: var(--serif); font-size: 1.2rem; color: var(--ink); }
+  .row .v { font-family: var(--serif); font-size: 1.32rem; color: var(--ink); }
 
   .venue { text-align:center; margin-top: 22px; }
   .venue .k { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-deep); }
