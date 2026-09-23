@@ -157,6 +157,7 @@
   footer .names-sm { font-family: var(--serif); font-size: 1.7rem; color: var(--ivory); margin-top: 6px; }
   footer .sub { color: rgba(244,239,227,0.75); margin-top: 10px; font-size: 0.85rem; }
 
+  .rsvp { text-align:center; }
   .reveal { opacity: 0; transform: translateY(34px); transition: opacity .9s var(--ease), transform .9s var(--ease); will-change: opacity, transform; }
   .reveal.zoom { transform: scale(.94); }
   .reveal.in { opacity: 1; transform: none; }
@@ -252,6 +253,13 @@
     </div>
   </section>
 
+  <!-- RSVP -->
+  <section class="wrap rsvp">
+    <div class="section-title reveal"><h2>RSVP</h2><div class="draw-line"></div></div>
+    <p class="section-lead reveal">Your presence and du'as would mean the world to us. Kindly let us know if you'll be joining, InshaAllah.</p>
+    <div class="reveal zoom"><a class="btn" id="rsvp" href="#" target="_blank" rel="noopener">Confirm Attendance</a></div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="reveal">
     <p class="arabic">بَارَكَ اللّٰهُ لَكُمَا</p>
@@ -262,6 +270,10 @@
   <script>
     window.addEventListener('load', function () { requestAnimationFrame(function(){ document.body.classList.add('loaded'); }); });
     setTimeout(function(){ document.body.classList.add('loaded'); }, 2600);
+
+    (function(){ var b=document.getElementById('rsvp'); if(!b) return;
+      var msg="Assalamu Alaikum! \ud83c\udf19 I would be delighted to join Ishtiyaq & Rumana for their Nikah (11 Oct) & Walima (12 Oct) 2026, InshaAllah. Wishing you both a lifetime of love, barakah and happiness! \ud83d\udc9a\u2728";
+      b.href="https://wa.me/917095123983?text="+encodeURIComponent(msg); })();
 
     (function () {
       var root=document.getElementById('countdown'); if(!root) return;
