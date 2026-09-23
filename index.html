@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0f4c3a" />
+<title>Nikah Invitation</title>
+<meta name="description" content="Bismillah — You are cordially invited to our Nikah." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --cream: #f6f1e7;
+    --cream-2: #efe6d4;
+    --paper: #fbf7ee;
+    --green: #0f4c3a;
+    --green-deep: #0a3a2c;
+    --green-soft: #14503d;
+    --gold: #c8a24a;
+    --gold-deep: #a9863a;
+    --ink: #26332c;
+    --muted: #6f7d72;
+    --line: #d9cba7;
+    --amiri: "Amiri", "Traditional Arabic", serif;
+    --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --sans: "Jost", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; font-family: var(--sans); color: var(--ink);
+    background: var(--cream); line-height: 1.65; overflow-x: hidden;
+  }
+  h1,h2,h3 { font-family: var(--serif); font-weight: 500; margin: 0; }
+  a { color: inherit; }
+  .arabic { font-family: var(--amiri); direction: rtl; }
+
+  /* subtle geometric texture behind everything */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; opacity: 0.05;
+    background-image:
+      radial-gradient(circle at 25% 25%, var(--green) 2px, transparent 2.5px),
+      radial-gradient(circle at 75% 75%, var(--gold) 2px, transparent 2.5px);
+    background-size: 46px 46px;
+  }
+
+  .progress { position: fixed; top:0; left:0; height:3px; width:0%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-deep)); z-index: 100; transition: width .1s linear; }
+
+  .wrap { width: 100%; max-width: 720px; margin: 0 auto; padding: 0 22px; }
+
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold-deep); font-weight: 500; }
+
+  /* 8-point star divider */
+  .star-div { display:flex; align-items:center; justify-content:center; gap:14px; margin: 26px auto 0; }
+  .star-div i { display:block; height:1px; width:52px; background: linear-gradient(90deg, transparent, var(--gold)); }
+  .star-div i:last-child { background: linear-gradient(90deg, var(--gold), transparent); }
+  .star {
+    width: 20px; height: 20px; background: var(--gold);
+    transform: rotate(0deg);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+
+  /* ---------- CURTAIN INTRO ---------- */
+  .curtain { position: fixed; inset: 0; z-index: 90; pointer-events: none; display: flex; }
+  .curtain span { flex: 1; background: linear-gradient(180deg, var(--green), var(--green-deep)); transform: translateY(0); transition: transform 1.1s var(--ease); }
+  .curtain span:nth-child(2){ transition-delay:.08s; } .curtain span:nth-child(3){ transition-delay:.16s; }
+  body.loaded .curtain span { transform: translateY(-101%); }
+
+  /* ---------- HERO (mihrab arch) ---------- */
+  .hero {
+    position: relative; min-height: 100svh; display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 54px 22px; overflow: hidden;
+    background:
+      radial-gradient(120% 70% at 50% 0%, #12583f 0%, var(--green) 45%, var(--green-deep) 100%);
+    color: var(--cream);
+  }
+  .arch {
+    position: relative; width: 100%; max-width: 460px; padding: 54px 26px 46px;
+    border: 1.5px solid rgba(200,162,74,0.6);
+    border-radius: 220px 220px 18px 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.10));
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.25);
+  }
+  .arch::before {
+    content:""; position:absolute; inset:9px; border:1px solid rgba(200,162,74,0.35);
+    border-radius: 210px 210px 12px 12px; pointer-events:none;
+  }
+  .crescent {
+    width: 34px; height: 34px; margin: 0 auto 14px; position: relative;
+  }
+  .crescent::before {
+    content:""; position:absolute; inset:0; border-radius:50%;
+    box-shadow: 9px 3px 0 0 var(--gold);
+  }
+  .hero-inner > * { opacity: 0; }
+  body.loaded .bismillah { animation: rise .9s var(--ease) .95s forwards; }
+  body.loaded .hero .eyebrow { animation: rise .9s var(--ease) 1.15s forwards; }
+  body.loaded .crescent { animation: rise .9s var(--ease) 1.05s forwards; }
+  body.loaded .names { animation: rise 1s var(--ease) 1.3s forwards; }
+  body.loaded .hero-sub { animation: rise 1s var(--ease) 1.55s forwards; }
+  body.loaded .hero-date { animation: rise 1s var(--ease) 1.7s forwards; }
+  body.loaded .hero .star-div { animation: fade 1s var(--ease) 1.9s forwards; }
+  body.loaded .scroll-hint { animation: fade 1s var(--ease) 2.2s forwards; }
+
+  .bismillah { font-family: var(--amiri); font-size: clamp(1.5rem, 8vw, 2.3rem); color: var(--gold); margin-bottom: 20px; line-height: 1.8; }
+  .hero .eyebrow { color: var(--gold); margin-bottom: 10px; }
+  .names { font-size: clamp(2.7rem, 13vw, 4.4rem); line-height: 1.02; color: var(--cream); }
+  .amp { display:block; font-family: var(--serif); font-style: italic; font-size: 0.4em; color: var(--gold); margin: 4px 0; }
+  .hero-sub { margin-top: 20px; font-size: 0.92rem; letter-spacing: 0.05em; color: rgba(246,241,231,0.85); }
+  .hero-date { margin-top: 6px; font-family: var(--serif); font-size: 1.45rem; color: var(--gold); }
+
+  .scroll-hint { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+    font-size: 0.64rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(246,241,231,0.7); }
+  .scroll-hint span { display:block; margin: 8px auto 0; width:1px; height:24px;
+    background: linear-gradient(var(--gold), transparent); animation: bounce 1.8s var(--ease) infinite; }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 74px 0; position: relative; }
+  .section-title { text-align: center; margin-bottom: 8px; }
+  .section-title .arabic { color: var(--gold-deep); font-size: 1.5rem; margin-bottom: 2px; }
+  .section-title h2 { font-size: clamp(2rem, 8vw, 2.7rem); color: var(--green); }
+  .section-lead { text-align: center; color: var(--muted); margin: 0 auto 40px; max-width: 42ch; }
+  .draw-line { width: 0; height: 1px; background: var(--gold); margin: 12px auto 0; transition: width 1s var(--ease); }
+  .in .draw-line { width: 60px; }
+
+  /* Ayah / Quran verse */
+  .ayah { background: var(--green); color: var(--cream); }
+  .ayah-card { text-align: center; padding: 8px 0; }
+  .ayah .arabic { font-size: clamp(1.5rem, 7vw, 2.2rem); color: var(--gold); line-height: 2.1; }
+  .ayah-trans { max-width: 44ch; margin: 22px auto 0; font-family: var(--serif); font-size: 1.25rem; font-style: italic; color: rgba(246,241,231,0.92); }
+  .ayah-ref { margin-top: 14px; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+
+  /* Countdown */
+  .countdown { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; }
+  .cd-box { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px 6px; min-width: 74px; text-align:center; box-shadow: 0 8px 24px rgba(15,76,58,0.06); }
+  .cd-num { font-family: var(--serif); font-size: 2rem; color: var(--green); line-height:1; }
+  .cd-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+  .events { background: var(--paper); }
+  .timeline { display:grid; gap:16px; }
+  .event-card {
+    position: relative; background: var(--cream); border:1px solid var(--line);
+    border-radius: 90px 90px 16px 16px; padding: 30px 24px 24px; text-align:center;
+    box-shadow: 0 10px 30px rgba(15,76,58,0.06);
+  }
+  .event-card .badge {
+    width: 52px; height: 52px; margin: 0 auto 10px; border-radius: 50%;
+    background: var(--green); color: var(--gold); display:grid; place-items:center; font-size: 1.4rem;
+    box-shadow: 0 6px 16px rgba(15,76,58,0.25);
+  }
+  .event-card h3 { font-size: 1.6rem; color: var(--green); }
+  .event-card .arabic { color: var(--gold-deep); font-size: 1.15rem; }
+  .event-meta { color: var(--gold-deep); font-size: 0.85rem; letter-spacing: 0.04em; margin-top: 4px; }
+  .event-card p { margin: 8px auto 0; color: var(--muted); font-size: 0.92rem; max-width: 34ch; }
+
+  /* Venue with wipe uncover */
+  .venue-card {
+    position: relative; text-align:center; background: var(--paper); border:1px solid var(--line);
+    border-radius: 120px 120px 18px 18px; padding: 46px 26px 40px; overflow:hidden;
+    box-shadow: 0 12px 34px rgba(15,76,58,0.07);
+  }
+  .venue-card::after { content:""; position:absolute; inset:0; background: var(--green); transform: translateX(0); transition: transform 1s var(--ease); }
+  .venue-card.in::after { transform: translateX(101%); }
+  .venue-card > * { position: relative; z-index: 1; }
+  .venue-card .badge { width:52px;height:52px;margin:0 auto 12px;border-radius:50%;background:var(--green);color:var(--gold);display:grid;place-items:center;font-size:1.3rem;}
+  .venue-card h3 { font-size: 1.8rem; color: var(--green); margin-bottom: 4px; }
+  .venue-card address { font-style: normal; color: var(--muted); margin-bottom: 22px; }
+
+  .btn {
+    display:inline-block; text-decoration:none; background: var(--green); color: var(--cream);
+    padding: 13px 30px; border-radius: 40px; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase;
+    transition: transform .2s ease, box-shadow .2s ease; box-shadow: 0 6px 18px rgba(15,76,58,0.3);
+    border: 1px solid var(--gold);
+  }
+  .btn:active { transform: scale(0.96); }
+
+  .rsvp { text-align:center; }
+  .rsvp .btn { margin-top: 8px; }
+
+  footer { text-align:center; padding: 58px 22px 46px; color: var(--muted); background: var(--green); }
+  footer .arabic { color: var(--gold); font-size: 1.7rem; }
+  footer .names-sm { font-family: var(--serif); font-size: 1.6rem; color: var(--cream); margin-top: 6px; }
+  footer .sub { color: rgba(246,241,231,0.75); margin-top: 10px; font-size: 0.85rem; }
+
+  /* Reveal system */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.from-left { transform: translateX(-40px); } .reveal.from-right { transform: translateX(40px); }
+  .reveal.zoom { transform: scale(.92); }
+  .reveal.in { opacity: 1; transform: none; }
+  [data-stagger] > * { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  [data-stagger].in > * { opacity: 1; transform: none; }
+
+  @keyframes rise { from { opacity:0; transform: translateY(22px);} to { opacity:1; transform:none; } }
+  @keyframes fade { to { opacity: 1; } }
+  @keyframes bounce { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(6px);} }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .reveal, [data-stagger] > *, .hero-inner > * { opacity: 1 !important; transform: none !important; }
+    .curtain { display: none; } .venue-card::after { display: none; } .draw-line { width: 60px; }
+  }
+</style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="curtain"><span></span><span></span><span></span></div>
+
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <div class="hero-inner arch">
+      <p class="bismillah arabic">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+      <div class="crescent"></div>
+      <p class="eyebrow">Nikah Invitation</p>
+      <h1 class="names">Bride Name<span class="amp">weds</span>Groom Name</h1>
+      <p class="hero-sub">Together with our families, we request the honour of your presence</p>
+      <p class="hero-date">Saturday, 00 Month 2026</p>
+      <div class="star-div"><i></i><span class="star"></span><i></i></div>
+    </div>
+    <div class="scroll-hint">Scroll<span></span></div>
+  </header>
+
+  <!-- ================= AYAH ================= -->
+  <section class="ayah">
+    <div class="wrap ayah-card reveal zoom">
+      <p class="arabic">وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً</p>
+      <p class="ayah-trans">“And among His signs is that He created for you mates from among yourselves, that you may find tranquillity in them; and He placed between you affection and mercy.”</p>
+      <p class="ayah-ref">Surah Ar-Rum · 30:21</p>
+    </div>
+  </section>
+
+  <!-- ================= COUNTDOWN ================= -->
+  <section class="wrap">
+    <div class="section-title reveal"><h2>Counting the Days</h2><div class="draw-line"></div></div>
+    <p class="section-lead reveal">By the grace of Allah, our blessed day draws near.</p>
+    <div class="countdown reveal zoom" id="countdown" data-date="2026-12-31T18:00:00" data-stagger>
+      <div class="cd-box"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Days</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Hours</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Minutes</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Seconds</div></div>
+    </div>
+  </section>
+
+  <!-- ================= EVENTS ================= -->
+  <section class="events">
+    <div class="wrap">
+      <div class="section-title reveal"><h2>The Celebrations</h2><div class="draw-line"></div></div>
+      <p class="section-lead reveal">We would be honoured by your presence, du'as and blessings.</p>
+      <div class="timeline" data-stagger>
+        <article class="event-card">
+          <div class="badge">✦</div>
+          <h3>Mehndi</h3>
+          <div class="event-meta">Thursday · 5:00 PM · Garden Lawn</div>
+          <p>An evening of henna, colour and joy with the family.</p>
+        </article>
+        <article class="event-card">
+          <div class="badge">☾</div>
+          <h3>Nikah</h3>
+          <p class="arabic">النِّكَاح</p>
+          <div class="event-meta">Saturday · 6:00 PM · Jamia Masjid</div>
+          <p>The sacred marriage ceremony, followed by du'a.</p>
+        </article>
+        <article class="event-card">
+          <div class="badge">✧</div>
+          <h3>Walima</h3>
+          <p class="arabic">الوَلِيْمَة</p>
+          <div class="event-meta">Sunday · 7:30 PM · Grand Banquet</div>
+          <p>The wedding feast — please join us for dinner.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VENUE ================= -->
+  <section class="wrap">
+    <div class="section-title reveal"><h2>The Venue</h2><div class="draw-line"></div></div>
+    <p class="section-lead reveal">Where our families come together, InshaAllah.</p>
+    <div class="venue-card reveal">
+      <div class="badge">☾</div>
+      <h3>Venue Name</h3>
+      <address>Street Address, City, State — PIN</address>
+      <a class="btn" href="https://maps.google.com/?q=Venue+Name" target="_blank" rel="noopener">Get Directions</a>
+    </div>
+  </section>
+
+  <!-- ================= RSVP ================= -->
+  <section class="wrap rsvp">
+    <div class="section-title reveal"><h2>RSVP</h2><div class="draw-line"></div></div>
+    <p class="section-lead reveal">Kindly confirm your presence by 00 Month 2026. Your du'as mean the world to us.</p>
+    <div class="reveal zoom">
+      <a class="btn" href="mailto:hello@example.com?subject=RSVP%20-%20Nikah">Confirm Attendance</a>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="reveal">
+    <p class="arabic">بَارَكَ اللّٰهُ لَكُمَا</p>
+    <div class="names-sm">Bride Name &amp; Groom Name</div>
+    <p class="sub">“May Allah bless you both, and unite you in goodness.” · 2026</p>
+  </footer>
+
+  <script>
+    window.addEventListener('load', function () {
+      requestAnimationFrame(function(){ document.body.classList.add('loaded'); });
+    });
+
+    (function () {
+      var root = document.getElementById('countdown'); if (!root) return;
+      var target = new Date(root.getAttribute('data-date')).getTime();
+      var d=document.getElementById('cd-days'),h=document.getElementById('cd-hours'),
+          m=document.getElementById('cd-mins'),s=document.getElementById('cd-secs');
+      function pad(n){ return (n<10?'0':'')+n; }
+      function tick(){
+        var diff=target-Date.now();
+        if(diff<=0){ d.textContent=h.textContent=m.textContent=s.textContent='00'; clearInterval(t); return; }
+        var sec=Math.floor(diff/1000);
+        d.textContent=Math.floor(sec/86400);
+        h.textContent=pad(Math.floor(sec%86400/3600));
+        m.textContent=pad(Math.floor(sec%3600/60));
+        s.textContent=pad(sec%60);
+      }
+      tick(); var t=setInterval(tick,1000);
+    })();
+
+    (function () {
+      var items=document.querySelectorAll('.reveal, [data-stagger]');
+      if(!('IntersectionObserver' in window)){ items.forEach(function(el){ el.classList.add('in'); }); return; }
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(!e.isIntersecting) return; var el=e.target;
+          if(el.hasAttribute('data-stagger')){
+            Array.prototype.forEach.call(el.children,function(c,i){ c.style.transitionDelay=(i*0.14)+'s'; });
+          }
+          el.classList.add('in'); io.unobserve(el);
+        });
+      },{ threshold:0.15, rootMargin:'0px 0px -8% 0px' });
+      items.forEach(function(el){ io.observe(el); });
+    })();
+
+    document.querySelectorAll('.timeline .event-card').forEach(function(card,i){
+      card.classList.add('reveal', i%2?'from-right':'from-left');
+    });
+
+    (function () {
+      var bar=document.getElementById('progress'); var ticking=false;
+      function onScroll(){
+        if(ticking) return; ticking=true;
+        requestAnimationFrame(function(){
+          var y=window.pageYOffset;
+          var docH=document.documentElement.scrollHeight-window.innerHeight;
+          bar.style.width=(docH>0?(y/docH)*100:0)+'%'; ticking=false;
+        });
+      }
+      window.addEventListener('scroll',onScroll,{ passive:true }); onScroll();
+    })();
+  </script>
+</body>
+</html>
