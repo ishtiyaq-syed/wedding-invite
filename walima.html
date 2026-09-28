@@ -44,7 +44,7 @@
   body::before {
     content:""; position: fixed; inset: 0; z-index: -1; opacity: 0.6; pointer-events:none;
     background-color: var(--cream);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Cg fill='none' stroke='%235c8a4e' stroke-opacity='0.14' stroke-width='1.3'%3E%3Cpath d='M18,30C11,24,7,19,7,14.5C7,11,9.5,9,12.5,9C15,9,17,10.6,18,12.6C19,10.6,21,9,23.5,9C26.5,9,29,11,29,14.5C29,19,25,24,18,30Z'/%3E%3Cpath d='M50,60C43,54,39,49,39,44.5C39,41,41.5,39,44.5,39C47,39,49,40.6,50,42.6C51,40.6,53,39,55.5,39C58.5,39,61,41,61,44.5C61,49,57,54,50,60Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Cg fill='none' stroke='%235c8a4e' stroke-opacity='0.26' stroke-width='1.3'%3E%3Cpath d='M18,30C11,24,7,19,7,14.5C7,11,9.5,9,12.5,9C15,9,17,10.6,18,12.6C19,10.6,21,9,23.5,9C26.5,9,29,11,29,14.5C29,19,25,24,18,30Z'/%3E%3Cpath d='M50,60C43,54,39,49,39,44.5C39,41,41.5,39,44.5,39C47,39,49,40.6,50,42.6C51,40.6,53,39,55.5,39C58.5,39,61,41,61,44.5C61,49,57,54,50,60Z'/%3E%3C/g%3E%3C/svg%3E");
     background-size: 68px 68px;
   }
 
@@ -81,7 +81,7 @@
   }
   .hero::before {
     content:""; position:absolute; inset:0; z-index:0; opacity:0.55; pointer-events:none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 70 70'%3E%3Cg fill='none' stroke='%2386b177' stroke-opacity='0.16' stroke-width='1.3'%3E%3Cpath d='M18,30C11,24,7,19,7,14.5C7,11,9.5,9,12.5,9C15,9,17,10.6,18,12.6C19,10.6,21,9,23.5,9C26.5,9,29,11,29,14.5C29,19,25,24,18,30Z'/%3E%3Cpath d='M50,60C43,54,39,49,39,44.5C39,41,41.5,39,44.5,39C47,39,49,40.6,50,42.6C51,40.6,53,39,55.5,39C58.5,39,61,41,61,44.5C61,49,57,54,50,60Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 70 70'%3E%3Cg fill='none' stroke='%2386b177' stroke-opacity='0.22' stroke-width='1.3'%3E%3Cpath d='M18,30C11,24,7,19,7,14.5C7,11,9.5,9,12.5,9C15,9,17,10.6,18,12.6C19,10.6,21,9,23.5,9C26.5,9,29,11,29,14.5C29,19,25,24,18,30Z'/%3E%3Cpath d='M50,60C43,54,39,49,39,44.5C39,41,41.5,39,44.5,39C47,39,49,40.6,50,42.6C51,40.6,53,39,55.5,39C58.5,39,61,41,61,44.5C61,49,57,54,50,60Z'/%3E%3C/g%3E%3C/svg%3E");
     background-size: 84px 84px;
   }
   .hero::after {
@@ -172,6 +172,10 @@
   footer .arabic { color: var(--gold-deep); font-size: 1.9rem; }
   footer .names-sm { font-family: var(--serif); font-size: 1.5rem; color: var(--sage-deep); margin-top: 6px; }
   footer .sub { color: var(--muted); margin-top: 8px; font-size: 0.82rem; }
+  footer .family { margin-top: 26px; }
+  footer .family .fh { font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 10px; }
+  footer .family .pair { font-family: var(--serif); font-size: 1.18rem; color: var(--sage-deep); line-height: 1.55; }
+  footer .family .amp { color: var(--gold-deep); font-style: italic; }
 
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); will-change: opacity, transform; }
   .reveal.in { opacity: 1; transform: none; }
@@ -184,15 +188,44 @@
   @keyframes spinIn { from { opacity:0; transform: rotate(-90deg) scale(.4);} to { opacity:1; transform: rotate(0) scale(1);} }
   @keyframes bounce { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(5px);} }
 
+
+  .hearts { position: fixed; inset: 0; z-index: 40; overflow: hidden; pointer-events: none; }
+  .hearts b { position: absolute; bottom: -8vh; display: block; background: var(--sage-mid);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath d='M16 29S2 20 2 10a8 8 0 0 1 14-5 8 8 0 0 1 14 5c0 10-14 19-14 19z'/%3E%3C/svg%3E") center/contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath d='M16 29S2 20 2 10a8 8 0 0 1 14-5 8 8 0 0 1 14 5c0 10-14 19-14 19z'/%3E%3C/svg%3E") center/contain no-repeat;
+    opacity: 0; animation: floatUp linear infinite; will-change: transform, opacity; }
+  @keyframes floatUp {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    12%  { opacity: 0.38; }
+    50%  { transform: translateY(-55vh) translateX(16px) rotate(12deg); }
+    88%  { opacity: 0.38; }
+    100% { transform: translateY(-112vh) translateX(-10px) rotate(-14deg); opacity: 0; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
     .reveal, [data-stagger] > *, .hero-inner > * { opacity: 1 !important; transform: none !important; }
-    .veil { display: none; } .draw-line { width: 58px; }
+    .veil { display: none; } .hearts { display: none; } .draw-line { width: 58px; }
   }
 </style>
 </head>
 <body>
   <div class="progress" id="progress"></div>
+  <div class="hearts" aria-hidden="true">
+    <b style="left:5%;width:18px;height:18px;animation-duration:15s;animation-delay:-1s;"></b>
+    <b style="left:12%;width:12px;height:12px;animation-duration:19s;animation-delay:-6s;"></b>
+    <b style="left:20%;width:22px;height:22px;animation-duration:13s;animation-delay:-3s;"></b>
+    <b style="left:28%;width:14px;height:14px;animation-duration:17s;animation-delay:-9s;"></b>
+    <b style="left:36%;width:16px;height:16px;animation-duration:21s;animation-delay:-2s;"></b>
+    <b style="left:44%;width:11px;height:11px;animation-duration:16s;animation-delay:-12s;"></b>
+    <b style="left:52%;width:20px;height:20px;animation-duration:14s;animation-delay:-5s;"></b>
+    <b style="left:60%;width:13px;height:13px;animation-duration:18s;animation-delay:-8s;"></b>
+    <b style="left:68%;width:17px;height:17px;animation-duration:15s;animation-delay:-1s;"></b>
+    <b style="left:76%;width:12px;height:12px;animation-duration:20s;animation-delay:-11s;"></b>
+    <b style="left:84%;width:19px;height:19px;animation-duration:13s;animation-delay:-4s;"></b>
+    <b style="left:90%;width:14px;height:14px;animation-duration:17s;animation-delay:-7s;"></b>
+    <b style="left:96%;width:11px;height:11px;animation-duration:22s;animation-delay:-10s;"></b>
+    <b style="left:2%;width:15px;height:15px;animation-duration:16s;animation-delay:-13s;"></b>
+  </div>
   <div class="veil" id="veil">
     <div class="veil-mark">
       <div class="v-star"></div>
@@ -253,6 +286,11 @@
     <p class="arabic">بَارَكَ اللّٰهُ لَكُمَا</p>
     <div class="names-sm">Ishtiyaq &amp; Rumana</div>
     <p class="sub">“May Allah bless you both, and unite you in goodness.”</p>
+    <div class="family">
+      <div class="fh">With the blessings of our families</div>
+      <div class="pair">Syed Sajid Ali <span class="amp">&amp;</span> Syed Arshiya Sultana</div>
+      <div class="pair">Shaik Shahed <span class="amp">&amp;</span> Syed Ishrath Sultana</div>
+    </div>
   </footer>
 
   <script>
