@@ -226,19 +226,27 @@
     100% { transform: translateY(-112vh) translateX(-10px) rotate(-14deg); opacity: 0; }
   }
 
-  .fab { position: fixed; right: 16px; bottom: 18px; z-index: 130; display:flex; flex-direction:column; gap:12px; }
-  .fab a { width:52px; height:52px; border-radius:50%; display:grid; place-items:center; color:#fff;
+  .fab { position: fixed; right: 16px; bottom: 18px; z-index: 130; display:flex; flex-direction:column; gap:12px; align-items:flex-end; }
+  .fab-item { position: relative; display:flex; justify-content:flex-end; }
+  .fbtn { width:52px; height:52px; border-radius:50%; display:grid; place-items:center; color:#fff; border:none; cursor:pointer; padding:0;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2); transition: transform .2s ease; opacity:0; transform: translateY(14px);
     animation: fabin .5s var(--ease) 1.1s forwards; }
-  .fab a:active { transform: scale(0.92); }
-  .fab a svg { width:26px; height:26px; display:block; }
+  .fbtn:active { transform: scale(0.92); }
+  .fbtn svg { width:26px; height:26px; display:block; }
   .fab .wa { background:#25d366; }
   .fab .call { background: var(--sage-deep); border:1px solid var(--gold); animation-delay:1.25s; }
   @keyframes fabin { to { opacity:1; transform: none; } }
+  .fab-menu { position:absolute; right:60px; top:50%; display:flex; flex-direction:column; gap:8px;
+    opacity:0; visibility:hidden; pointer-events:none; transform: translateY(-50%) translateX(8px);
+    transition: opacity .2s var(--ease), transform .2s var(--ease); }
+  .fab-item.open .fab-menu { opacity:1; visibility:visible; pointer-events:auto; transform: translateY(-50%) translateX(0); }
+  .fab-menu a { white-space:nowrap; text-decoration:none; background: var(--paper); color: var(--sage-deep); border:1px solid var(--gold);
+    border-radius:22px; padding:9px 16px; font-size:0.82rem; font-family: var(--serif); box-shadow: 0 6px 16px rgba(0,0,0,0.14); transition: transform .15s ease; }
+  .fab-menu a:active { transform: scale(0.97); }
 
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
-    .reveal, [data-stagger] > *, .hero-inner > * { opacity: 1 !important; transform: none !important; }
+    .reveal, [data-stagger] > *, .hero-inner > *, .fbtn { opacity: 1 !important; transform: none !important; }
     .veil { display: none; } .hearts { display: none; } .draw-line { width: 58px; }
   }
 </style>
@@ -415,14 +423,46 @@
         });
       });
     })();
+
+    (function(){
+      var items = Array.prototype.slice.call(document.querySelectorAll('.fab-item'));
+      function closeAll(except){
+        items.forEach(function(it){
+          if(it!==except){ it.classList.remove('open'); var b=it.querySelector('.fbtn'); if(b) b.setAttribute('aria-expanded','false'); }
+        });
+      }
+      items.forEach(function(it){
+        var btn=it.querySelector('.fbtn');
+        btn.addEventListener('click', function(e){
+          e.stopPropagation();
+          var isOpen=it.classList.contains('open');
+          closeAll(it);
+          if(isOpen){ it.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+          else { it.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+        });
+        it.querySelectorAll('.fab-menu a').forEach(function(a){
+          a.addEventListener('click', function(){ setTimeout(function(){ closeAll(null); }, 60); });
+        });
+      });
+      document.addEventListener('click', function(){ closeAll(null); });
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape'||e.key==='Esc') closeAll(null); });
+    })();
   </script>
-  <div class="fab" aria-label="Contact the hosts">
-    <a class="wa" href="https://wa.me/917095123983" target="_blank" rel="noopener" aria-label="Message on WhatsApp">
-      <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.02 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.26.59 4.46 1.71 6.4L3.2 28.8l6.56-1.72c1.87 1.02 3.98 1.56 6.13 1.56h.01c7.06 0 12.8-5.74 12.8-12.8 0-3.42-1.33-6.63-3.75-9.05-2.42-2.42-5.63-3.75-9.04-3.75zm0 23.42h-.01c-1.92 0-3.8-.52-5.44-1.49l-.39-.23-4.04 1.06 1.08-3.94-.25-.4c-1.07-1.7-1.63-3.66-1.63-5.68 0-5.87 4.78-10.65 10.66-10.65 2.85 0 5.52 1.11 7.53 3.13 2.01 2.01 3.12 4.69 3.12 7.53 0 5.88-4.78 10.66-10.65 10.66zM19.11 17.23c-.28-.14-1.65-.81-1.9-.9-.26-.09-.44-.14-.63.14-.18.28-.72.9-.88 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.49.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.63-1.51-.86-2.07-.23-.55-.46-.47-.63-.48h-.54c-.18 0-.47.07-.72.35-.25.28-.95.93-.95 2.27s.97 2.63 1.11 2.81c.14.18 1.92 2.93 4.65 4.11.65.28 1.16.45 1.55.58.65.21 1.24.18 1.71.11.52-.08 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.19-.53-.33z"/></svg>
-    </a>
-    <a class="call" href="tel:+917095123983" aria-label="Call">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1l-2.2 2.2z"/></svg>
-    </a>
+  <div class="fab" aria-label="Contact us">
+    <div class="fab-item">
+      <button class="fbtn wa" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Message on WhatsApp"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.02 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.26.59 4.46 1.71 6.4L3.2 28.8l6.56-1.72c1.87 1.02 3.98 1.56 6.13 1.56h.01c7.06 0 12.8-5.74 12.8-12.8 0-3.42-1.33-6.63-3.75-9.05-2.42-2.42-5.63-3.75-9.04-3.75zm0 23.42h-.01c-1.92 0-3.8-.52-5.44-1.49l-.39-.23-4.04 1.06 1.08-3.94-.25-.4c-1.07-1.7-1.63-3.66-1.63-5.68 0-5.87 4.78-10.65 10.66-10.65 2.85 0 5.52 1.11 7.53 3.13 2.01 2.01 3.12 4.69 3.12 7.53 0 5.88-4.78 10.66-10.65 10.66zM19.11 17.23c-.28-.14-1.65-.81-1.9-.9-.26-.09-.44-.14-.63.14-.18.28-.72.9-.88 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.39-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.49.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.63-1.51-.86-2.07-.23-.55-.46-.47-.63-.48h-.54c-.18 0-.47.07-.72.35-.25.28-.95.93-.95 2.27s.97 2.63 1.11 2.81c.14.18 1.92 2.93 4.65 4.11.65.28 1.16.45 1.55.58.65.21 1.24.18 1.71.11.52-.08 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.19-.53-.33z"/></svg></button>
+      <div class="fab-menu" role="menu">
+        <a role="menuitem" href="https://wa.me/917095123983" target="_blank" rel="noopener">Ishtiyaq</a>
+        <a role="menuitem" href="https://wa.me/919347587820" target="_blank" rel="noopener">Syed Sajid Ali</a>
+      </div>
+    </div>
+    <div class="fab-item">
+      <button class="fbtn call" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Call"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1l-2.2 2.2z"/></svg></button>
+      <div class="fab-menu" role="menu">
+        <a role="menuitem" href="tel:+917095123983">Ishtiyaq</a>
+        <a role="menuitem" href="tel:+919347587820">Syed Sajid Ali</a>
+      </div>
+    </div>
   </div>
 </body>
 </html>
