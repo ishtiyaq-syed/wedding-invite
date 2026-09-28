@@ -172,10 +172,12 @@
   footer .arabic { color: var(--gold-deep); font-size: 1.9rem; }
   footer .names-sm { font-family: var(--serif); font-size: 1.5rem; color: var(--sage-deep); margin-top: 6px; }
   footer .sub { color: var(--muted); margin-top: 8px; font-size: 0.82rem; }
-  footer .family { margin-top: 26px; }
-  footer .family .fh { font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 10px; }
-  footer .family .pair { font-family: var(--serif); font-size: 1.18rem; color: var(--sage-deep); line-height: 1.55; }
-  footer .family .amp { color: var(--gold-deep); font-style: italic; }
+  footer .family { margin-top: 30px; }
+  footer .family .fh { font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 20px; }
+  footer .family .pair { margin-bottom: 22px; }
+  footer .family .pair:last-child { margin-bottom: 0; }
+  footer .family .pname { font-family: var(--serif); font-size: 1.2rem; color: var(--sage-deep); line-height: 1.35; }
+  footer .family .amp { display:block; font-family: var(--serif); font-style: italic; font-size: 0.95rem; color: var(--gold-deep); margin: 2px 0; }
 
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); will-change: opacity, transform; }
   .reveal.in { opacity: 1; transform: none; }
@@ -277,9 +279,9 @@
   </section>
 
   <section class="wrap rsvp">
-    <div class="section-title reveal"><h2>RSVP</h2><div class="draw-line"></div></div>
-    <p class="section-lead reveal">Your presence and du'as would mean the world to us. Kindly let us know if you'll be joining, InshaAllah.</p>
-    <div class="reveal"><a class="btn" id="rsvp" href="#" target="_blank" rel="noopener">Confirm Attendance</a></div>
+    <div class="section-title reveal"><h2>Will You Join Us?</h2><div class="draw-line"></div></div>
+    <p class="section-lead reveal">A quick message helps us plan to host you well. Do let us know if you can make it.</p>
+    <div class="reveal"><a class="btn" id="rsvp" href="#" target="_blank" rel="noopener">Let Us Know on WhatsApp</a></div>
   </section>
 
   <footer class="reveal">
@@ -288,8 +290,16 @@
     <p class="sub">“May Allah bless you both, and unite you in goodness.”</p>
     <div class="family">
       <div class="fh">With the blessings of our families</div>
-      <div class="pair">Syed Sajid Ali <span class="amp">&amp;</span> Syed Arshiya Sultana</div>
-      <div class="pair">Shaik Shahed <span class="amp">&amp;</span> Syed Ishrath Sultana</div>
+      <div class="pair">
+        <div class="pname">Syed Sajid Ali</div>
+        <div class="amp">&amp;</div>
+        <div class="pname">Syed Arshiya Sultana</div>
+      </div>
+      <div class="pair">
+        <div class="pname">Shaik Shahed</div>
+        <div class="amp">&amp;</div>
+        <div class="pname">Syed Ishrath Sultana</div>
+      </div>
     </div>
   </footer>
 
