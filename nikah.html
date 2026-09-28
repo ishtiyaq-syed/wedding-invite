@@ -425,27 +425,28 @@
     })();
 
     (function(){
-      var items = Array.prototype.slice.call(document.querySelectorAll('.fab-item'));
-      function closeAll(except){
-        items.forEach(function(it){
-          if(it!==except){ it.classList.remove('open'); var b=it.querySelector('.fbtn'); if(b) b.setAttribute('aria-expanded','false'); }
+      function closeAll(){
+        var opened = document.querySelectorAll('.fab-item.open');
+        Array.prototype.forEach.call(opened, function(it){
+          it.classList.remove('open');
+          var b=it.querySelector('.fbtn'); if(b) b.setAttribute('aria-expanded','false');
         });
       }
-      items.forEach(function(it){
-        var btn=it.querySelector('.fbtn');
-        btn.addEventListener('click', function(e){
-          e.stopPropagation();
-          var isOpen=it.classList.contains('open');
-          closeAll(it);
-          if(isOpen){ it.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
-          else { it.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
-        });
-        it.querySelectorAll('.fab-menu a').forEach(function(a){
-          a.addEventListener('click', function(){ setTimeout(function(){ closeAll(null); }, 60); });
-        });
+      document.addEventListener('click', function(e){
+        var t=e.target;
+        var btn=(t && t.closest) ? t.closest('.fbtn') : null;
+        if(btn){
+          var item=btn.closest('.fab-item');
+          var wasOpen=item.classList.contains('open');
+          closeAll();
+          if(!wasOpen){ item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+          e.preventDefault();
+          return;
+        }
+        if(t && t.closest && t.closest('.fab-menu')) return;
+        closeAll();
       });
-      document.addEventListener('click', function(){ closeAll(null); });
-      document.addEventListener('keydown', function(e){ if(e.key==='Escape'||e.key==='Esc') closeAll(null); });
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape'||e.key==='Esc') closeAll(); });
     })();
   </script>
   <div class="fab" aria-label="Contact us">
