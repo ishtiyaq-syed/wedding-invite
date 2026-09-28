@@ -120,8 +120,8 @@
   .ayah-tr { font-family: var(--serif); font-style: italic; font-size: 0.98rem; color: var(--ink); max-width: 40ch; margin: 10px auto 0; }
   .ayah-ref { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage-deep); margin-top: 8px; }
 
-  .scroll-hint { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index:1; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
-  .scroll-hint span { display:block; margin: 7px auto 0; width:1px; height:22px; background: linear-gradient(var(--gold-deep), transparent); animation: bounce 1.8s var(--ease) infinite; }
+  .scroll-hint { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); z-index:1; }
+  .scroll-hint span { display:block; width:15px; height:15px; border-right:1.6px solid var(--gold-deep); border-bottom:1.6px solid var(--gold-deep); transform: rotate(45deg); animation: chevbob 1.8s var(--ease) infinite; }
 
   section { padding: 54px 0; position: relative; }
   section.tint { background: var(--paper); }
@@ -189,6 +189,7 @@
   @keyframes fadeUp { from { opacity:0; transform: translateY(14px);} to { opacity:1; transform:none; } }
   @keyframes spinIn { from { opacity:0; transform: rotate(-90deg) scale(.4);} to { opacity:1; transform: rotate(0) scale(1);} }
   @keyframes bounce { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(5px);} }
+  @keyframes chevbob { 0%,100%{ transform: rotate(45deg) translate(-2px,-2px); opacity:.5; } 50%{ transform: rotate(45deg) translate(2px,2px); opacity:.9; } }
 
 
   .hearts { position: fixed; inset: 0; z-index: 40; overflow: hidden; pointer-events: none; }
@@ -247,7 +248,7 @@
       <p class="ayah-tr">“And He placed between you affection and mercy.”</p>
       <p class="ayah-ref">Surah Ar-Rum · 30:21</p>
     </div>
-    <div class="scroll-hint">Scroll<span></span></div>
+    <div class="scroll-hint"><span></span></div>
   </header>
 
   <section class="wrap">
